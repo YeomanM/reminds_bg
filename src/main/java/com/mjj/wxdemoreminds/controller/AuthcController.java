@@ -22,13 +22,13 @@ public class AuthcController {
 
     @GetMapping("/{code}")
     public BaseResponse authc(@PathVariable String code) {
-//        String url = "https://api.weixin.qq.com/sns/jscode2session?" +
-//                "appid=%s&secret=%s&js_code=%s&grant_type=authorization_code";
-//        url = String.format(url, appid, appSecret, code);
-//        System.out.println(url);
+        String url = "https://api.weixin.qq.com/sns/jscode2session?" +
+                "appid=%s&secret=%s&js_code=%s&grant_type=authorization_code";
+        url = String.format(url, appid, appSecret, code);
+        System.out.println(url);
         try {
-//            String data = HttpAccessor.doAttemptHttpGet(url);
-//            System.out.println(data);
+            String data = HttpAccessor.doAttemptHttpGet(url);
+            System.out.println(data);
             return BaseResponse.success(code);
         } catch (Exception e) {
             e.printStackTrace();

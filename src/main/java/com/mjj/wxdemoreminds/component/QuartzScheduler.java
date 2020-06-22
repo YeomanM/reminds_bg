@@ -43,7 +43,11 @@ public class QuartzScheduler {
 
                     scheduler = schedulerFactory.getScheduler();
                     reminds.forEach(remind -> {
-
+                        try {
+                            addJob(remind);
+                        } catch (SchedulerException e) {
+                            e.printStackTrace();
+                        }
                     });
                 }
             }
@@ -51,7 +55,6 @@ public class QuartzScheduler {
     }
 
     public void addJob(Reminds reminds) throws SchedulerException {
-        QuartzScheduleJob job = new QuartzScheduleJob(reminds.getOpenId(), reminds.getType());
 
         String jobName = String.valueOf(reminds.getId());
         TriggerKey triggerKey = TriggerKey.triggerKey(jobName, JOB_DEFAULT_GROUP_NAME);
@@ -90,8 +93,13 @@ public class QuartzScheduler {
         }
     }
 
+    public void deleteJob(Reminds reminds) throws SchedulerException {
+        JobKey jobKey = new JobKey(String.valueOf(reminds.getId()), JOB_DEFAULT_GROUP_NAME);
+        this.scheduler.deleteJob(jobKey);
+    }
 
-    private class QuartzScheduleJob implements Job {
+
+    private static class QuartzScheduleJob implements Job {
 
         String openId;
         int type;
