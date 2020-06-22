@@ -26,7 +26,8 @@ public class Controller {
 
     @GetMapping
     public BaseResponse list() {
-        return BaseResponse.success(remindsRepository.findAll(Sort.by("id").descending()));
+//        return BaseResponse.success(remindsRepository.findAll(Sort.by("id").descending()));
+        return BaseResponse.success(remindsRepository.findRemindsByOpenIdOrderByIdDesc(""));
     }
 
     @DeleteMapping("/{id}")

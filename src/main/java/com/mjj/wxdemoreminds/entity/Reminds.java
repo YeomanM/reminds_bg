@@ -1,6 +1,7 @@
 package com.mjj.wxdemoreminds.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.mjj.wxdemoreminds.util.DateUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,6 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.Calendar;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -36,11 +39,25 @@ public class Reminds {
         this.type = Type.getInstance(type);
     }
 
+    public String formatTime() {
+        Calendar ca = Calendar.getInstance();
+        StringBuilder builder = new StringBuilder("00");
+        String[] times = this.time.split(":");
+        builder.append(" ").append(times[1]).append(" ").append(times[0]);
+        if (this.type.type == Type.ONCE.type || this.type.type == Type.EVERY_DAY.type) {
+            builder.append(" * * ?");
+        } else if (this.type.type == Type.WORK_DAY.type) {
+            builder.append(" ? * MON-FRI");
+        } else {
+            throw new RuntimeException("cron 格式错误!");
+        }
 
+        return builder.toString();
+    }
 
 
     @Getter
-    enum Type {
+    public enum Type {
 
         ONCE(0),
         EVERY_DAY(1),
