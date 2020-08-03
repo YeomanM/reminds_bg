@@ -13,4 +13,6 @@ public interface RemindsRepository extends JpaRepository<Reminds, Long> {
 
     List<Reminds> findRemindsByValidTrue();
 
+    void deleteById(@Param("id")Long id);
+
 }

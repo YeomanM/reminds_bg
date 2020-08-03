@@ -1,12 +1,14 @@
 package com.mjj.wxdemoreminds.service;
 
-import com.mjj.wxdemoreminds.component.QuartzScheduler;
+import com.mjj.wxdemoreminds.component.MyQuartzScheduler;
 import com.mjj.wxdemoreminds.entity.Reminds;
 import com.mjj.wxdemoreminds.model.BaseResponse;
 import com.mjj.wxdemoreminds.repository.RemindsRepository;
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @org.springframework.stereotype.Service
 public class Service {
@@ -15,7 +17,7 @@ public class Service {
     private RemindsRepository repository;
 
     @Autowired
-    private QuartzScheduler scheduler;
+    private MyQuartzScheduler scheduler;
 
     @Transactional(rollbackFor = Exception.class)
     public BaseResponse save(Reminds reminds) throws SchedulerException {
@@ -24,6 +26,7 @@ public class Service {
         return BaseResponse.success();
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public BaseResponse delete(Long id) throws SchedulerException {
         repository.deleteById(id);
         Reminds r = new Reminds();
@@ -32,8 +35,9 @@ public class Service {
         return BaseResponse.success();
     }
 
-    public BaseResponse list() {
-        return BaseResponse.success(repository.findRemindsByOpenIdOrderByIdDesc(""));
+    public BaseResponse list(String openId) {
+        List<Reminds> reminds = repository.findRemindsByOpenIdOrderByIdDesc(openId);
+        return BaseResponse.success(reminds);
     }
 
 }

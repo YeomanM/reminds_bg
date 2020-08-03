@@ -1,8 +1,7 @@
 package com.mjj.wxdemoreminds.util;
 
-import com.google.common.collect.Lists;
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.util.CollectionUtils;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -1349,7 +1348,7 @@ public class DateUtils {
      * @return
      */
     public static List<String> getCollectDates(String startDate, String endDate, String dateFormat, int flag) {
-        List<String> collectDates = Lists.newArrayList();
+        List<String> collectDates = new ArrayList<>();
 
         try {
             DateUtils.parseDate(startDate, dateFormat);

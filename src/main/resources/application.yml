@@ -1,17 +1,17 @@
 #server:
-#  port: 433
+#  port: 443
 #  ssl:
 #    key-store: classpath:mjj.pfx
 #    key-store-password: 8M8BUCn8
 #    key-store-type: PKCS12
 
 
-server:
-  port: 443
-  ssl:
-    key-store: classpath:local.pfx
-    key-store-password: mjjchou123
-    key-store-type: PKCS12
+#server:
+#  port: 443
+#  ssl:
+#    key-store: classpath:local.pfx
+#    key-store-password: mjjchou123
+#    key-store-type: PKCS12
 
 
 
@@ -20,7 +20,8 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/wx_reminds?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=true
     username: root
-    password:
+    password: 123456
+#    password: Feng1996+++
   jpa:
     properties:
       hibernate:

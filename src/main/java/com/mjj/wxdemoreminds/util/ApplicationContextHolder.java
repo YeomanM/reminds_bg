@@ -3,6 +3,7 @@ package com.mjj.wxdemoreminds.util;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
 
 /**
  * @author 冯宇明
@@ -10,6 +11,7 @@ import org.springframework.context.ApplicationContextAware;
  * @date 2020/6/22
  * @desc
  */
+@Component
 public class ApplicationContextHolder implements ApplicationContextAware {
 
     private static ApplicationContext context;
